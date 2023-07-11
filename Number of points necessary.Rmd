@@ -1,0 +1,60 @@
+---
+title: "Number of point necessary"
+author: "Lemariey"
+date: "2023-07-11"
+output: github_document
+---
+#test du nombre de points necessaire pour fit un model
+```{r}
+library("EnvStats")
+```
+
+
+create data
+```{r}
+y <- c(1,2,3)
+x1 <- c(4,5,7)
+x2 <- c(4,4,7)
+```
+
+
+#on peut fitter mais on a pas l'erreur
+```{r}
+m0<- lm(y[-1]~x2[-1])
+summary(m0)
+```
+
+
+
+```{r,error=TRUE}
+m1 <- lm(y~x1)
+summary(m1)
+anovaPE(m1)
+
+
+```
+We can fit the model and have the error but not the pure error cause there is no replicate
+
+
+```{r,error=TRUE}
+m2 <- lm(y~x2)
+summary(m2)
+anovaPE(m2)
+```
+We can fit the model and have the error.
+But we can't have the decomposition of the error (the can't evaluate the fit error)
+
+
+```{r}
+y <- c(1,2,3,5)
+x3 <- c(4,4,6,5)
+m3 <- lm(y~x3)
+summary(m3)
+anovaPE(m3)
+
+```
+
+In summary  
+-pour fitter sans l'erreur, il faut au moins p points qui forment une matrice de plein rang  
+-pour fitter sans pure erreur: p points qui forment une matrice de plein rang + 1 point pour erreur  
+-pour fitter p parameter correctement, il faut au moins p+1 point different (pour error of fit) + 1 points suppl?mentaire r?pliqu?  pure erreur (avec uniquement 1 repliqu? suppl?mentaire, il n'y a pas assez de degre de libert? pour estimer la pure erreur)  

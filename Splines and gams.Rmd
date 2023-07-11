@@ -495,7 +495,7 @@ smooth_x2<-s(x,bs="cr",k=2)
 
 
 
-ms_x1<-gam(y~s(x,bs="cr",k=5))#k=5 mini
+ms_x1<-gam(y~s(x,bs="cr",k=3))#k=5 mini
 ms_x2<-gam(y~s(x2,bs="cr",k=3))
 ms_x1x2<-gam(y~s(x,bs="cr",k=3)+s(x2,bs="cr",k=3))
 coef(ms_x1)

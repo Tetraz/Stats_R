@@ -96,21 +96,21 @@ summary(fit_msplines)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -45.777 -13.712   0.245  11.742  52.354 
+    ## -62.623 -15.222  -1.559  15.672  60.079 
     ## 
     ## Coefficients: (1 not defined because of singularities)
-    ##              Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept) -105.2962     6.8013  -15.48   <2e-16 ***
-    ## X1                 NA         NA      NA       NA    
-    ## X2           -16.2445     0.6856  -23.69   <2e-16 ***
-    ## X3            22.3147     1.1750   18.99   <2e-16 ***
-    ## X4            18.9007     1.1222   16.84   <2e-16 ***
+    ##             Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -94.5456     7.3239  -12.91   <2e-16 ***
+    ## X1                NA         NA      NA       NA    
+    ## X2          -15.7914     0.7143  -22.11   <2e-16 ***
+    ## X3           21.0720     1.2064   17.47   <2e-16 ***
+    ## X4           19.2742     1.2153   15.86   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 19.9 on 196 degrees of freedom
-    ## Multiple R-squared:  0.9468, Adjusted R-squared:  0.946 
-    ## F-statistic:  1164 on 3 and 196 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 22.37 on 196 degrees of freedom
+    ## Multiple R-squared:  0.9141, Adjusted R-squared:  0.9128 
+    ## F-statistic: 695.5 on 3 and 196 DF,  p-value: < 2.2e-16
 
 \#exemple with spline k=2 and degree=1 \#bsplines
 
@@ -126,14 +126,14 @@ summary(fit_bs)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -45.777 -13.712   0.245  11.742  52.354 
+    ## -62.623 -15.222  -1.559  15.672  60.079 
     ## 
     ## Coefficients: (1 not defined because of singularities)
     ##                                                 Estimate Std. Error t value
-    ## (Intercept)                                      286.211      4.324   66.19
-    ## bs(x, knots = knot, degree = 1, intercept = T)1 -148.234      6.299  -23.53
-    ## bs(x, knots = knot, degree = 1, intercept = T)2 -310.285      5.345  -58.05
-    ## bs(x, knots = knot, degree = 1, intercept = T)3 -249.582      6.460  -38.63
+    ## (Intercept)                                      259.711      4.948   52.49
+    ## bs(x, knots = knot, degree = 1, intercept = T)1 -118.881      6.756  -17.60
+    ## bs(x, knots = knot, degree = 1, intercept = T)2 -275.300      6.166  -44.65
+    ## bs(x, knots = knot, degree = 1, intercept = T)3 -222.494      6.967  -31.94
     ## bs(x, knots = knot, degree = 1, intercept = T)4       NA         NA      NA
     ##                                                 Pr(>|t|)    
     ## (Intercept)                                       <2e-16 ***
@@ -144,9 +144,9 @@ summary(fit_bs)
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 19.9 on 196 degrees of freedom
-    ## Multiple R-squared:  0.9468, Adjusted R-squared:  0.946 
-    ## F-statistic:  1164 on 3 and 196 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 22.37 on 196 degrees of freedom
+    ## Multiple R-squared:  0.9141, Adjusted R-squared:  0.9128 
+    ## F-statistic: 695.5 on 3 and 196 DF,  p-value: < 2.2e-16
 
 ``` r
 predict_bsplines<-predict(fit_bs)
@@ -282,20 +282,20 @@ summary(model1)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -45.777 -13.712   0.245  11.742  52.354 
+    ## -62.623 -15.222  -1.559  15.672  60.079 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  137.977      4.360   31.65   <2e-16 ***
-    ## bsplines1   -162.051      6.840  -23.69   <2e-16 ***
-    ## bsplines2   -101.348      5.181  -19.56   <2e-16 ***
-    ## bsplines3    148.234      6.299   23.53   <2e-16 ***
+    ## (Intercept)  140.830      4.451   31.64   <2e-16 ***
+    ## bsplines1   -156.418      7.075  -22.11   <2e-16 ***
+    ## bsplines2   -103.612      5.410  -19.15   <2e-16 ***
+    ## bsplines3    118.881      6.756   17.60   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 19.9 on 196 degrees of freedom
-    ## Multiple R-squared:  0.9468, Adjusted R-squared:  0.946 
-    ## F-statistic:  1164 on 3 and 196 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 22.37 on 196 degrees of freedom
+    ## Multiple R-squared:  0.9141, Adjusted R-squared:  0.9128 
+    ## F-statistic: 695.5 on 3 and 196 DF,  p-value: < 2.2e-16
 
 ``` r
 model2<-gam(formula=y~bsplines)
@@ -311,16 +311,16 @@ summary(model2)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  137.977      4.360   31.65   <2e-16 ***
-    ## bsplines1   -162.051      6.840  -23.69   <2e-16 ***
-    ## bsplines2   -101.348      5.181  -19.56   <2e-16 ***
-    ## bsplines3    148.234      6.299   23.53   <2e-16 ***
+    ## (Intercept)  140.830      4.451   31.64   <2e-16 ***
+    ## bsplines1   -156.418      7.075  -22.11   <2e-16 ***
+    ## bsplines2   -103.612      5.410  -19.15   <2e-16 ***
+    ## bsplines3    118.881      6.756   17.60   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## 
-    ## R-sq.(adj) =  0.946   Deviance explained = 94.7%
-    ## GCV = 404.07  Scale est. = 395.99    n = 200
+    ## R-sq.(adj) =  0.913   Deviance explained = 91.4%
+    ## GCV = 510.73  Scale est. = 500.52    n = 200
 
 ``` r
 plot(round(predict(model1),2),round(predict(model2),2))
@@ -369,27 +369,27 @@ summary(model_smooth1)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)   79.004      1.348   58.59   <2e-16 ***
+    ## (Intercept)    81.24       1.48    54.9   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
     ##        edf Ref.df     F p-value    
-    ## s(x) 4.875  5.802 653.8  <2e-16 ***
+    ## s(x) 5.061   6.03 397.3  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =   0.95   Deviance explained = 95.2%
-    ## GCV = 374.69  Scale est. = 363.68    n = 200
+    ## R-sq.(adj) =  0.924   Deviance explained = 92.6%
+    ## GCV = 451.64  Scale est. = 437.95    n = 200
 
 ``` r
 coef(model_smooth1)#10 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4      s(x).5 
-    ##    79.00376    34.39440   -80.16158  -126.83786  -149.31141  -122.09144 
+    ##   81.242413   31.891677  -88.088248 -127.347402 -131.973714 -138.941901 
     ##      s(x).6      s(x).7      s(x).8      s(x).9 
-    ##   -53.04371    42.77093   185.11738   331.16538
+    ##  -98.454845    3.860962  148.024982  288.743075
 
 ``` r
 model_smooth2<-gam(y~s(x,bs="bs",k=5))#k=5 mini
@@ -405,25 +405,25 @@ summary(model_smooth2)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)   79.004      1.355   58.31   <2e-16 ***
+    ## (Intercept)   81.242      1.486   54.69   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##       edf Ref.df   F p-value    
-    ## s(x) 3.82   3.98 948  <2e-16 ***
+    ##        edf Ref.df     F p-value    
+    ## s(x) 3.897  3.993 598.4  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =   0.95   Deviance explained = 95.1%
-    ## GCV = 376.24  Scale est. = 367.17    n = 200
+    ## R-sq.(adj) =  0.923   Deviance explained = 92.5%
+    ## GCV = 452.47  Scale est. = 441.39    n = 200
 
 ``` r
 coef(model_smooth2)#5 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##    79.00376  -206.96663  -552.51093   -20.76839   714.39829
+    ##    81.24241  -261.63686  -602.99909  -154.36662   798.39792
 
 ``` r
 plot(x,predict(model2),type="l",col="blue")
@@ -477,25 +477,25 @@ summary(model_smooth_bs)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)   79.004      1.355   58.31   <2e-16 ***
+    ## (Intercept)   81.242      1.486   54.69   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##       edf Ref.df   F p-value    
-    ## s(x) 3.82   3.98 948  <2e-16 ***
+    ##        edf Ref.df     F p-value    
+    ## s(x) 3.897  3.993 598.4  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =   0.95   Deviance explained = 95.1%
-    ## GCV = 376.24  Scale est. = 367.17    n = 200
+    ## R-sq.(adj) =  0.923   Deviance explained = 92.5%
+    ## GCV = 452.47  Scale est. = 441.39    n = 200
 
 ``` r
 coef(model_smooth_bs)#5 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##    79.00376  -206.96663  -552.51093   -20.76839   714.39829
+    ##    81.24241  -261.63686  -602.99909  -154.36662   798.39792
 
 ``` r
 model_smooth_tp<-gam(y~s(x,bs="tp",k=5))#k=5 mini
@@ -511,25 +511,25 @@ summary(model_smooth_tp)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)   79.004      1.351   58.49   <2e-16 ***
+    ## (Intercept)   81.242      1.482   54.81   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
     ##        edf Ref.df     F p-value    
-    ## s(x) 3.868   3.99 951.6  <2e-16 ***
+    ## s(x) 3.909  3.995 600.6  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =   0.95   Deviance explained = 95.1%
-    ## GCV = 373.93  Scale est. = 364.82    n = 200
+    ## R-sq.(adj) =  0.923   Deviance explained = 92.5%
+    ## GCV = 450.39  Scale est. = 439.34    n = 200
 
 ``` r
 coef(model_smooth_tp)#5 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##   79.003762    1.406659 -106.897158 -321.014833   36.747574
+    ##    81.24241   -36.60783  -144.35095  -356.56142    32.66135
 
 ``` r
 model_smooth_cr<-gam(y~s(x,bs="cr",k=5))#k=5 mini
@@ -545,25 +545,25 @@ summary(model_smooth_cr)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)   79.004      1.353    58.4   <2e-16 ***
+    ## (Intercept)   81.242      1.485   54.72   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
     ##        edf Ref.df     F p-value    
-    ## s(x) 3.856  3.988 948.5  <2e-16 ***
+    ## s(x) 3.892  3.992 598.7  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =   0.95   Deviance explained = 95.1%
-    ## GCV = 375.16  Scale est. = 366.05    n = 200
+    ## R-sq.(adj) =  0.923   Deviance explained = 92.5%
+    ## GCV = 451.93  Scale est. = 440.88    n = 200
 
 ``` r
 coef(model_smooth_cr)#5 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##   79.003762  -76.910342 -112.117802   -9.947934  200.142637
+    ##    81.24241   -82.70666   -97.19452   -32.45639   174.12853
 
 ``` r
 plot(x,predict(model_smooth_bs),type="l",col="blue")
@@ -614,57 +614,57 @@ summary(model_smooth_cr_lin)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)   
-    ## (Intercept)  -2.4789     0.7613  -3.256  0.00133 **
+    ## (Intercept)  -2.2331     0.6762  -3.302  0.00114 **
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##      edf Ref.df    F p-value    
-    ## s(x)   1      1 3480  <2e-16 ***
+    ##        edf Ref.df    F p-value    
+    ## s(x) 2.077  2.589 1610  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## R-sq.(adj) =  0.946   Deviance explained = 94.6%
-    ## GCV = 117.09  Scale est. = 115.92    n = 200
+    ## R-sq.(adj) =  0.954   Deviance explained = 95.5%
+    ## GCV = 92.881  Scale est. = 91.452    n = 200
 
 ``` r
 coef(model_smooth_cr_lin)#5 coefficients
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4      s(x).5 
-    ##  -2.4788644 -56.6807619 -70.0024966 -64.6936640 -64.1442428 -58.4773840 
+    ##   -2.233107  -66.360982  -65.573571  -66.979344  -64.506981  -61.373083 
     ##      s(x).6      s(x).7      s(x).8      s(x).9     s(x).10     s(x).11 
-    ## -56.8020456 -51.3758881 -55.5947839 -48.5566763 -54.7140104 -49.4439021 
+    ##  -65.355266  -59.091367  -56.515794  -56.399247  -54.587903  -54.803009 
     ##     s(x).12     s(x).13     s(x).14     s(x).15     s(x).16     s(x).17 
-    ## -49.8305434 -48.3528455 -46.5916012 -45.4422724 -48.1006865 -40.6197544 
+    ##  -53.243049  -54.216334  -50.760303  -50.492993  -48.899906  -42.683738 
     ##     s(x).18     s(x).19     s(x).20     s(x).21     s(x).22     s(x).23 
-    ## -43.3162490 -39.7909260 -44.5303973 -38.9743077 -39.6208070 -39.0638362 
+    ##  -49.509760  -42.109009  -42.112411  -42.711950  -35.220986  -39.372670 
     ##     s(x).24     s(x).25     s(x).26     s(x).27     s(x).28     s(x).29 
-    ## -35.8351214 -35.7569277 -33.8424527 -34.7697590 -31.3748607 -29.8903960 
+    ##  -33.153249  -33.948948  -31.208812  -32.229321  -27.185924  -27.832122 
     ##     s(x).30     s(x).31     s(x).32     s(x).33     s(x).34     s(x).35 
-    ## -28.8871917 -26.8516994 -24.6189375 -23.3676109 -22.9859351 -17.9434409 
+    ##  -23.751039  -23.068160  -20.339904  -19.521589  -17.964014  -15.642883 
     ##     s(x).36     s(x).37     s(x).38     s(x).39     s(x).40     s(x).41 
-    ## -18.0636700  -8.8127618 -11.5078990  -6.8732564 -10.3297308  -5.1309567 
+    ##  -14.139388  -11.627765   -9.672854   -9.962915   -6.751286   -2.351428 
     ##     s(x).42     s(x).43     s(x).44     s(x).45     s(x).46     s(x).47 
-    ##  -4.9283629  -1.6024179   0.3367039   1.3603613   1.7103450   5.8687392 
+    ##    1.017115    2.988668    2.606393    8.459251   10.040697   10.633583 
     ##     s(x).48     s(x).49     s(x).50     s(x).51     s(x).52     s(x).53 
-    ##   3.5073334   6.6550655  10.4000508   5.1150922  13.8197603  10.5657942 
+    ##   14.398606   13.485727   18.540445   14.435130   21.381263   18.092005 
     ##     s(x).54     s(x).55     s(x).56     s(x).57     s(x).58     s(x).59 
-    ##  12.4392099  12.5440808  16.4365648  17.2962670  19.0356569  17.7989002 
+    ##   21.165957   24.820797   27.568975   22.063082   28.977996   27.447201 
     ##     s(x).60     s(x).61     s(x).62     s(x).63     s(x).64     s(x).65 
-    ##  20.0797549  23.4001355  21.9355253  25.7192432  24.9235834  28.4339354 
+    ##   27.636778   26.930421   30.215995   30.223756   32.904826   30.519234 
     ##     s(x).66     s(x).67     s(x).68     s(x).69     s(x).70     s(x).71 
-    ##  24.6372104  27.8322161  34.1639710  32.6845912  38.6204975  36.4423164 
+    ##   35.075480   33.354212   37.767095   33.876339   40.858637   37.298616 
     ##     s(x).72     s(x).73     s(x).74     s(x).75     s(x).76     s(x).77 
-    ##  46.7788199  42.4107809  47.0014472  47.7227940  48.0485574  52.8167889 
+    ##   39.674193   42.956184   37.912068   46.684895   43.421425   52.694842 
     ##     s(x).78     s(x).79     s(x).80     s(x).81     s(x).82     s(x).83 
-    ##  49.5460041  53.7691308  53.5422904  57.9142465  53.4118587  61.4874342 
+    ##   51.561540   51.846949   51.020257   55.447922   53.666947   56.711364 
     ##     s(x).84     s(x).85     s(x).86     s(x).87     s(x).88     s(x).89 
-    ##  61.1983920  64.6715493  64.0152411  69.3249287  68.5683914  74.8668815 
+    ##   57.695381   59.703178   55.782179   63.222880   61.910294   64.764166 
     ##     s(x).90     s(x).91     s(x).92     s(x).93     s(x).94     s(x).95 
-    ##  70.9042602  76.5947528  74.9036330  75.9806135  77.4019345  82.3062055 
+    ##   63.974257   61.097356   65.722964   64.802810   68.949106   66.738962 
     ##     s(x).96     s(x).97     s(x).98     s(x).99 
-    ##  74.8385787  85.2774631  85.1323261  81.3704942
+    ##   67.463262   73.280312   74.662778   71.337986
 
 ``` r
 plot(x,predict(model_smooth_cr_lin),type="l",col="blue")
@@ -678,53 +678,53 @@ summary<-summary(model_smooth_cr_lin)
 summary$s.table
 ```
 
-    ##           edf   Ref.df        F p-value
-    ## s(x) 1.000002 1.000004 3479.988       0
+    ##           edf  Ref.df        F p-value
+    ## s(x) 2.077202 2.58941 1609.903       0
 
 ``` r
 summary$se
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4      s(x).5 
-    ## 0.761304851 0.960829587 1.186654326 1.096661049 1.087347412 0.991284978 
+    ##   0.6762089   1.4181380   1.3918890   1.3985096   1.3176342   1.2406541 
     ##      s(x).6      s(x).7      s(x).8      s(x).9     s(x).10     s(x).11 
-    ## 0.962885006 0.870902868 0.942419871 0.823112684 0.927489308 0.838152529 
+    ##   1.2916975   1.1085077   1.0275840   1.0123537   0.9684586   0.9644346 
     ##     s(x).12     s(x).13     s(x).14     s(x).15     s(x).16     s(x).17 
-    ## 0.844706703 0.819657333 0.789801417 0.770318458 0.815382771 0.688569114 
+    ##   0.9226532   0.9379668   0.8734044   0.8657560   0.8387713   0.7649537 
     ##     s(x).18     s(x).19     s(x).20     s(x).21     s(x).22     s(x).23 
-    ## 0.734278952 0.674519165 0.754860681 0.660676200 0.671635381 0.662193855 
+    ##   0.8500053   0.7673736   0.7732383   0.7931004   0.7634642   0.7900483 
     ##     s(x).24     s(x).25     s(x).26     s(x).27     s(x).28     s(x).29 
-    ## 0.607462100 0.606136604 0.573683289 0.589402587 0.531853830 0.506689900 
+    ##   0.7768882   0.7907961   0.7949218   0.8014116   0.8181097   0.8231246 
     ##     s(x).30     s(x).31     s(x).32     s(x).33     s(x).34     s(x).35 
-    ## 0.489684105 0.455179443 0.417330842 0.396119042 0.389649088 0.304171715 
+    ##   0.8427832   0.8490341   0.8655258   0.8689968   0.8785914   0.8889859 
     ##     s(x).36     s(x).37     s(x).38     s(x).39     s(x).40     s(x).41 
-    ## 0.306209781 0.149396415 0.195081244 0.116520929 0.175110070 0.086989368 
+    ##   0.8946180   0.9111594   0.9133393   0.9025813   0.9310458   0.9115814 
     ##     s(x).42     s(x).43     s(x).44     s(x).45     s(x).46     s(x).47 
-    ## 0.083555141 0.027202223 0.005895686 0.023108089 0.029029763 0.099496165 
+    ##   0.9256218   0.9369890   0.9046037   0.9205028   0.9042813   0.8782502 
     ##     s(x).48     s(x).49     s(x).50     s(x).51     s(x).52     s(x).53 
-    ## 0.059472631 0.112823961 0.176304078 0.086719875 0.234272042 0.179112996 
+    ##   0.9100087   0.8615374   0.9115171   0.8266439   0.8965904   0.8351604 
     ##     s(x).54     s(x).55     s(x).56     s(x).57     s(x).58     s(x).59 
-    ## 0.210869536 0.212646796 0.278629654 0.293202521 0.322687669 0.301722656 
+    ##   0.8647306   0.8349111   0.8660198   0.7756085   0.8562865   0.8242894 
     ##     s(x).60     s(x).61     s(x).62     s(x).63     s(x).64     s(x).65 
-    ## 0.340386540 0.396671696 0.371844151 0.435983788 0.422496039 0.482001959 
+    ##   0.8180044   0.7950495   0.8212558   0.8098985   0.8251596   0.7673805 
     ##     s(x).66     s(x).67     s(x).68     s(x).69     s(x).70     s(x).71 
-    ## 0.417641391 0.471801663 0.579134412 0.554056350 0.654679292 0.617755487 
+    ##   0.8216039   0.7845337   0.8275647   0.7466908   0.8337136   0.7696392 
     ##     s(x).72     s(x).73     s(x).74     s(x).75     s(x).76     s(x).77 
-    ## 0.792975256 0.718930016 0.796749041 0.808976954 0.814499096 0.895328117 
+    ##   0.7940380   0.8262133   0.7475332   0.8583483   0.7778742   0.8856916 
     ##     s(x).78     s(x).79     s(x).80     s(x).81     s(x).82     s(x).83 
-    ## 0.839883144 0.911471775 0.907626470 0.981738007 0.905415472 1.042309171 
+    ##   0.8721581   0.8772403   0.8702262   0.9289344   0.9207795   0.9738017 
     ##     s(x).84     s(x).85     s(x).86     s(x).87     s(x).88     s(x).89 
-    ## 1.037409506 1.096285030 1.085159764 1.175167310 1.162342883 1.269112291 
+    ##   1.0020956   1.0378032   1.0187230   1.0950646   1.1439373   1.2098063 
     ##     s(x).90     s(x).91     s(x).92     s(x).93     s(x).94     s(x).95 
-    ## 1.201939865 1.298402603 1.269735545 1.287992194 1.312085946 1.395221063 
+    ##   1.2202262   1.2100144   1.2502607   1.2793528   1.3473795   1.4098204 
     ##     s(x).96     s(x).97     s(x).98     s(x).99 
-    ## 1.268633570 1.445588686 1.443128555 1.379359923
+    ##   1.4624646   1.5608130   1.7510065   1.7653767
 
 ``` r
 summary$edf
 ```
 
-    ## [1] 1.000002
+    ## [1] 2.077202
 
 Even if we choose K very big, it’s prevent overfitting contrary to
 polynomial regression.
@@ -757,7 +757,7 @@ s<-summary(model_smooth_bs3)
 s$edf
 ```
 
-    ## [1] 3.967471
+    ## [1] 3.953513
 
 ``` r
 #spline non lissé
@@ -802,27 +802,27 @@ summary$s.table
 ```
 
     ##           edf   Ref.df        F p-value
-    ## s(x) 3.976488 3.999667 2689.384       0
+    ## s(x) 3.975354 3.999596 2529.556       0
 
 ``` r
 summary$se
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##   0.2202482   0.7122994   0.5593942   0.6623656   0.7966333
+    ##   0.2342462   0.7053388   0.5436102   0.6572354   0.9217038
 
 ``` r
 summary$edf
 ```
 
-    ## [1] 3.976488
+    ## [1] 3.975354
 
 ``` r
 coef(model_smooth_cr_cst2)
 ```
 
     ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##    24.01567    -4.36731   -42.30330   -39.72426   -18.01507
+    ##   24.117971   -5.203273  -40.869761  -40.627488  -19.938429
 
 A smooth spline with k =3 is closer to a quadratic regression than a
 spline regression with k=3 basis functions. Why ? Maybe cause in smoooth
@@ -862,7 +862,7 @@ pred_smooth_3<-predict(model_smooth_bs3)
 summary(model_smooth_bs3)$edf
 ```
 
-    ## [1] 11.42941
+    ## [1] 11.61531
 
 ``` r
 #overfitetd model non smooth
@@ -898,13 +898,13 @@ lwr <- p$fit - (2 * p$se.fit)
 qt(c(0.025,0.975),200-20)*p$se.fit[1]+p$fit[1]
 ```
 
-    ## [1] 14.25699 15.94475
+    ## [1] 14.16624 15.56371
 
 ``` r
 qt(c(0.025,0.975),200-13.43)*p$se.fit[1]+p$fit[1]
 ```
 
-    ## [1] 14.25719 15.94455
+    ## [1] 14.16641 15.56354
 
 ``` r
 plot(x,predict(model_smooth_bs3))
@@ -956,18 +956,18 @@ summary(gam_inter)
     ## 
     ## Parametric coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  73.1384     0.3929   186.2   <2e-16 ***
+    ## (Intercept)  84.5487     0.3881   217.9   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## Approximate significance of smooth terms:
-    ##          edf Ref.df    F p-value    
-    ## te(x,x2)   5      5 9312  <2e-16 ***
+    ##            edf Ref.df    F p-value    
+    ## te(x,x2) 6.834  7.489 6428  <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
     ## R-sq.(adj) =  0.996   Deviance explained = 99.6%
-    ## GCV = 31.827  Scale est. = 30.872    n = 200
+    ## GCV = 31.347  Scale est. = 30.119    n = 200
 
 ``` r
 pred<-predict(gam_inter)
@@ -1007,7 +1007,7 @@ length(coef(gam_inter))
 summary(gam_inter)$edf
 ```
 
-    ## [1] 1.251004
+    ## [1] 1.427525
 
 ``` r
 gam_inter<-gam(y~te(x,x2,k=4,bs="cr"))
@@ -1020,7 +1020,7 @@ length(coef(gam_inter))
 summary(gam_inter)$edf
 ```
 
-    ## [1] 6.987042
+    ## [1] 11.38956
 
 \#comparison lin vs gam (splines) vs gam smooth
 
@@ -1039,28 +1039,28 @@ summary(linear_model)
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -30.766 -13.990  -4.432  14.439  51.288 
+    ## -30.599 -11.481  -3.103  11.172  47.420 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)    
-    ## (Intercept)  169.486      5.622   30.14   <2e-16 ***
-    ## spline_x11  -163.848      5.946  -27.55   <2e-16 ***
-    ## spline_x12   123.825      5.244   23.61   <2e-16 ***
-    ## spline_x21   -53.587      5.321  -10.07   <2e-16 ***
-    ## spline_x22   -89.827      4.908  -18.30   <2e-16 ***
+    ## (Intercept)  173.708      4.747   36.59   <2e-16 ***
+    ## spline_x11  -179.312      5.323  -33.68   <2e-16 ***
+    ## spline_x12   122.575      4.365   28.08   <2e-16 ***
+    ## spline_x21   -50.601      5.060  -10.00   <2e-16 ***
+    ## spline_x22   -86.896      4.396  -19.77   <2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 
-    ## Residual standard error: 19.99 on 195 degrees of freedom
-    ## Multiple R-squared:  0.946,  Adjusted R-squared:  0.9449 
-    ## F-statistic: 854.3 on 4 and 195 DF,  p-value: < 2.2e-16
+    ## Residual standard error: 18.12 on 195 degrees of freedom
+    ## Multiple R-squared:  0.9561, Adjusted R-squared:  0.9552 
+    ## F-statistic:  1062 on 4 and 195 DF,  p-value: < 2.2e-16
 
 ``` r
 coef(linear_model)
 ```
 
     ## (Intercept)  spline_x11  spline_x12  spline_x21  spline_x22 
-    ##   169.48592  -163.84765   123.82500   -53.58746   -89.82727
+    ##   173.70835  -179.31186   122.57508   -50.60142   -86.89617
 
 ``` r
 lin_pred<-predict(linear_model)
@@ -1071,7 +1071,7 @@ coef(gam_model)
 ```
 
     ## (Intercept)  spline_x11  spline_x12  spline_x21  spline_x22 
-    ##   169.48592  -163.84765   123.82500   -53.58746   -89.82727
+    ##   173.70835  -179.31186   122.57508   -50.60142   -86.89617
 
 ``` r
 test<-gam_model$R
@@ -1083,28 +1083,28 @@ smooth_x2<-s(x,bs="cr",k=2)
 
 
 
-ms_x1<-gam(y~s(x,bs="cr",k=5))#k=5 mini
+ms_x1<-gam(y~s(x,bs="cr",k=3))#k=5 mini
 ms_x2<-gam(y~s(x2,bs="cr",k=3))
 ms_x1x2<-gam(y~s(x,bs="cr",k=3)+s(x2,bs="cr",k=3))
 coef(ms_x1)
 ```
 
-    ## (Intercept)      s(x).1      s(x).2      s(x).3      s(x).4 
-    ##  73.1384396 -88.2195071 -88.1471145  -0.5349982 212.0744964
+    ## (Intercept)      s(x).1      s(x).2 
+    ##    84.54871  -124.23008   192.55028
 
 ``` r
 coef(ms_x2)
 ```
 
     ## (Intercept)     s(x2).1     s(x2).2 
-    ##    73.13844   -13.73870   -51.64257
+    ##    84.54871   -31.42482   -59.78359
 
 ``` r
 coef(ms_x1x2)
 ```
 
     ## (Intercept)      s(x).1      s(x).2     s(x2).1     s(x2).2 
-    ##    73.13844  -115.92059   200.97715   -32.00857   -52.53900
+    ##    84.54871  -121.75195   191.34288   -28.87109   -54.92528
 
 ``` r
 test<-ms_x1$R 
@@ -1151,11 +1151,11 @@ plot(ms_x1x2)
 summary(ms_x1x2)$edf
 ```
 
-    ## [1] 1.999956 1.000000
+    ## [1] 1.999959 1.000000
 
 ``` r
 coef(ms_x1x2)
 ```
 
     ## (Intercept)      s(x).1      s(x).2     s(x2).1     s(x2).2 
-    ##    73.13844  -115.92059   200.97715   -32.00857   -52.53900
+    ##    84.54871  -121.75195   191.34288   -28.87109   -54.92528
