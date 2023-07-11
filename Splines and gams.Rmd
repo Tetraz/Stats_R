@@ -1,0 +1,537 @@
+---
+title: "Splines and GAM"
+author: "Lemariey"
+date: "2023-06-08"
+output: github_document
+---
+
+```{r}
+library(gam)
+library(splines)
+library(mgcv)
+library(schoenberg)
+```
+
+
+#Splines
+You divise the x axis in k knot, and you fit k+1 functions (one for each part) h1...hk+1
+
+Then the prediction is equal to Y=B0+B1* h1+...+Bk *hk
+
+In general, if we want to fit polynom with degree d, you want the continuty of derivative until degree d-1.
+So with degree d and k knot, you have (k+1)* (d+1) params and k*(d) constraints so there is k+d+1 ddl.
+
+A spline  (linearity constrainst) is different from a piecewise polynomial regression (no constraint of linearity, more freedom in parameter).
+
+The base of functions that assures linearity constraints is :
+h1=1
+h2=X
+...
+hd+1=x**d
+hd+1+1=(x-E1)+**d
+...
+hd+1+k=(x-Ek)+**d
+
+The spline model is therefore just like a linear model with new variable.
+
+
+#example
+```{r}
+x<-sort(runif(200,-15,15))
+y<-2+5*x+1*x*x+rnorm(200,sd=20)
+reely<-2+5*x+1*x*x
+plot(x,y)
+lines(x,reely,col="red")
+```
+
+#M splines ( the simpliest basis)
+```{r}
+knot<-c(-5,5)
+d<-1
+X1<-outer(x,1:d,"^")
+X2<-outer(x,knot,">=")*outer(x,knot,"-")^d
+
+msplines<-cbind(1,X1,X2)
+fit_msplines<-lm(y~.,data=data.frame(msplines))
+summary(fit_msplines)
+
+
+
+
+```
+
+
+
+
+#exemple with spline k=2 and degree=1
+#bsplines
+```{r}
+
+
+fit_bs<-lm(y~bs(x,knots=knot,degree=1,intercept=T))
+bsplines<-bs(x,knots=knot,degree=1,intercept=T)
+summary(fit_bs)
+
+predict_bsplines<-predict(fit_bs)
+plot(x,predict_bsplines)
+lines(x,reely,col="red")
+```
+The function bs build the splines basis ( B basis) variables.
+
+
+
+
+#comparison
+```{r}
+predict_msplines<-predict(fit_msplines)
+plot(predict_bsplines,predict_msplines)
+
+
+plot(x,bsplines[,1],type="l",main="Bsplines basis",ylim=c(-2,2))
+lines(x,bsplines[,2],col="red")
+lines(x,bsplines[,3],col="blue")
+lines(x,bsplines[,4],col="green")
+
+plot(x,msplines[,1],type="l",main="Msplines basis",ylim=c(-2,2))
+lines(x,msplines[,2],col="red")
+lines(x,msplines[,3],col="blue")
+lines(x,msplines[,4],col="green")
+```
+Bsplines basis is defines by recursivity. CF wikipedia
+From the initial knot, you get the knot + boundaries (adding the extrem value).
+Then from the knot with boundaries you can get the knot vector (). There is different way of construction (uniform,open uniform,non uniform)
+it contains knot+boundaries+d+1 points.
+
+*always between -1 and 1
+*for each x value, there is only d+1 non nul basis functions.
+source: https://www.ibiblio.org/e-notes/Splines/basis.html#:~:text=P(t)%20%3D%20%E2%88%91i,t%20%E2%89%A4%20tn%2B1%20.&text=Ni%2Ck%20is%20a,t%20%3C%20ti%2B1.
+We obtain the same models but with 2 different basis.
+
+
+#bsplines2
+```{r}
+bsplines2<-bs(x,knots=c(-5,5),degree=2,intercept=T)
+plot(x,bsplines2[,1],type="l",main="Bsplines basis",ylim=c(-2,2))
+lines(x,bsplines2[,2],col="red")
+lines(x,bsplines2[,3],col="blue")
+lines(x,bsplines2[,4],col="green")
+lines(x,bsplines2[,5],col="purple")
+
+
+bsplines2<-bs(x,knots=c(-5,0,5),degree=1,intercept=T)
+plot(x,bsplines2[,1],type="l",main="Bsplines basis",ylim=c(-2,2))
+lines(x,bsplines2[,2],col="red")
+lines(x,bsplines2[,3],col="blue")
+lines(x,bsplines2[,4],col="green")
+lines(x,bsplines2[,5],col="purple")
+abline(v=c(-5,0,5))
+
+```
+The B basis are done with with open uniform knots. ( repetion of the extrem knots)
+
+The natural splines are a bit different. Not only the basis change but also "the space". Indeed these times the polynom on the extrem part are in degree (d-1)/2. We keep the same constrain on the knot ( derivative 0 until (d-1) are continu). There is less parameter than an m or bsplines.
+
+#natural splines
+```{r}
+#with this function, you can only have degree 3. 
+#With this functionit is a b spline
+natural<-data.frame(ns(x,knots=c(-5,0,5),intercept=T,Boundary.knots=c(-10,10)))
+fit_natural<-lm(y~.,data=natural)
+dim(natural)
+
+
+plot(x,natural[,1],type="l")
+lines(x,natural[,2],col="red")
+lines(x,natural[,3],col="blue")
+lines(x,natural[,4],col="green")
+lines(x,natural[,5],col="orange")
+
+
+predict_natural_splines<-predict(fit_natural)
+plot(x,predict_natural_splines)
+lines(x,reely,col="red")
+abline(v=c(-10,10))
+abline(v=c(-5,0,5))
+
+plot(x,predict_natural_splines,xlim=c(-10,-5),ylim=c(0,100))
+lines(x,reely,col="red")
+```
+#here there is k=3 and d=3
+2+4+4+4+4+2=20 params
+3*5knots=15  constraints
+20-15=5 functions
+
+
+
+
+
+
+
+#GAM model
+then on the splines new variables we can apply a lm or a smooth.
+
+```{r}
+bsplines<-bs(x,knots=knot,degree=1,intercept=F)
+model1<-lm(formula=y~bsplines)
+summary(model1)
+model2<-gam(formula=y~bsplines)
+summary(model2)
+
+plot(round(predict(model1),2),round(predict(model2),2))
+
+table(round(predict(model1),3)==round(predict(model2),3))
+d<-data.frame(predict(model1),predict(model2))
+
+
+plot(x,predict(model2),type="l",col="blue")
+points(x,y)
+```
+Model 1 and model 2 are the same, but with gam function, the intercept is computed also and therefore the splines coefficients are a bit different.
+
+
+One of the drawback of gam is for interaction, even if we can add interaction term manually in the model.
+
+
+
+
+#smooth
+bs penalty for smooth with a b spline basis and use the integral of the second derivative
+#compare smooth with just a spline
+```{r}
+model_smooth1<-gam(y~s(x,bs="bs"))
+summary(model_smooth1)
+coef(model_smooth1)#10 coefficients
+
+
+model_smooth2<-gam(y~s(x,bs="bs",k=5))#k=5 mini
+summary(model_smooth2)
+coef(model_smooth2)#5 coefficients
+
+plot(x,predict(model2),type="l",col="blue")
+lines(x,predict(model_smooth1),col="red")
+lines(x,predict(model_smooth2),col="green")
+points(x,y)
+
+plot(predict(model_smooth2),predict(model_smooth1))
+table(predict(model_smooth2)==predict(model_smooth1))
+d<-data.frame(predict(model_smooth2),predict(model_smooth1))
+#ce ne sont pas les memes foncitons
+
+```
+K is the maximum edf, it's the number of function in the basis.
+
+edf =2 it's similar to a linear regression with 1 inetrcept and 1 lin param.
+
+In linear model
+edf=trace(hatmatrix) because trace(AB) =trace(BA)p
+In  smooth regression 
+edf = trace (pseudo hat matrix)
+
+#comparison of smooth type
+```{r}
+model_smooth_bs<-gam(y~s(x,bs="bs",k=5))#k=5 mini
+summary(model_smooth_bs)
+coef(model_smooth_bs)#5 coefficients
+
+
+model_smooth_tp<-gam(y~s(x,bs="tp",k=5))#k=5 mini
+summary(model_smooth_tp)
+coef(model_smooth_tp)#5 coefficients
+
+model_smooth_cr<-gam(y~s(x,bs="cr",k=5))#k=5 mini
+summary(model_smooth_cr)
+coef(model_smooth_cr)#5 coefficients
+
+
+plot(x,predict(model_smooth_bs),type="l",col="blue")
+lines(x,predict(model_smooth_tp),col="red")
+lines(x,predict(model_smooth_cr),col="green")
+points(x,y)
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+#study smooth object
+```{r}
+smooths<-s(x,bs="cr",k=3)
+smooths$bs.dim
+smooths$dim
+smooths$id
+```
+
+
+#try with linear effect
+```{r}
+
+y2<-2+5*x+rnorm(200,sd=10)-3
+reely2<-2+5*x
+
+model_smooth_cr_lin<-gam(y2~s(x,bs="cr",k=100))#k=3 mini
+summary(model_smooth_cr_lin)
+coef(model_smooth_cr_lin)#5 coefficients
+plot(x,predict(model_smooth_cr_lin),type="l",col="blue")
+points(x,y2)
+
+summary<-summary(model_smooth_cr_lin)
+summary$s.table
+summary$se
+summary$edf
+
+```
+Even if we choose K very big, it's prevent overfitting contrary to polynomial regression.
+
+
+#try with cst piecewise
+```{r}
+
+y3<-x*(x>0)-5*x*(x<0)+rnorm(200,sd=3)
+reely3<-x*(x>0)-5*x*(x<0)
+
+#smoooth with cr
+model_smooth_cr_cst2<-gam(y3~s(x,bs="cr",k=5))
+pred_smooth_2<-predict(model_smooth_cr_cst2)
+length(coef(model_smooth_cr_cst2))
+
+#third smooth splines with bs
+model_smooth_bs3<-gam(y3~s(x,bs="bs",k=5))#k=5 mini
+pred_smooth_3<-predict(model_smooth_bs3)
+length(coef(model_smooth_bs3))
+s<-summary(model_smooth_bs3)
+s$edf
+
+#spline non lissé
+fit_bs<-lm(y3~bs(x,knots=2,degree=2,intercept=T))
+predict_bsplines<-predict(fit_bs)
+length(coef(fit_bs))
+
+
+
+#model quadratique
+quad_model<-lm(y3~poly(x,2))
+pred_quad<-predict(quad_model)
+cubic_model<-lm(y3~poly(x,3))
+pred_cub<-predict(cubic_model)
+lin4<-lm(y3~poly(x,4))
+pred_lin4<-predict(lin4)
+
+
+#comparison of function with 5 parameter
+plot(x,y3)
+lines(x,pred_quad,col="orange")
+lines(x,pred_cub,col="firebrick1")
+lines(x,pred_lin4,col="firebrick4")
+plot(x,y3)
+lines(x,pred_smooth_2,col="royalblue1")
+lines(x,pred_smooth_3,col="royalblue4")
+lines(x,predict_bsplines,col="blue")
+
+summary<-summary(model_smooth_cr_cst2)
+summary$s.table
+summary$se
+summary$edf
+coef(model_smooth_cr_cst2)
+```
+A smooth spline with k =3 is closer to a quadratic regression than a spline regression with k=3 basis functions. Why ?
+Maybe cause in smoooth regression, the function should be derivable twice.
+And the splines with knot is not derivable.
+
+
+
+
+#prediction
+```{r}
+res<-predict.gam(model_smooth_cr,se.fit=T)
+se<-res$se.fit
+```
+
+
+
+
+
+
+#3 part y
+In this section we increase the complexity of the real model and compare once again gam with polynomial regression.
+```{r}
+y4<--x*(x<(0))+x*(x>0)+(-2*x+20)*(x>10)+rnorm(200,sd=1)
+plot(x,y4)
+
+
+#model quadratique
+cubic_model<-lm(y4~poly(x,3))
+pred_cub<-predict(cubic_model)
+lin4<-lm(y4~poly(x,4))
+pred_lin4<-predict(lin4)
+lin5<-lm(y4~poly(x,20))
+pred_lin5<-predict(lin5)
+
+#spline non lissé good model
+fit_bs<-lm(y4~bs(x,knots=c(0,10),degree=1,intercept=T))
+predict_bsplines<-predict(fit_bs)
+
+#smooth splines
+model_smooth_bs3<-gam(y4~s(x,bs="cr",k=20))#k=5 mini
+pred_smooth_3<-predict(model_smooth_bs3)
+summary(model_smooth_bs3)$edf
+
+#overfitetd model non smooth
+fit_bs_over<-lm(y4~bs(x,knots=c(0,10),degree=17,intercept=T))
+predict_bsplines_over<-predict(fit_bs_over)
+
+plot(x,y4)
+lines(x,predict_bsplines,col="red")#fit the good model
+lines(x,pred_lin5,col="blue")
+lines(x,predict_bsplines_over,col="darkblue")
+lines(x,pred_smooth_3,col="purple")
+
+```
+
+
+A smooth spline with k =3 is closer to a quadratic regression than a spline regression with k=3 basis functions. Why ?
+Maybe cause in smoooth regression, the function should be derivable twice.
+And the splines with knot is not derivable.
+
+
+
+
+#prediction
+```{r}
+p <- predict(model_smooth_bs3, type = "link", se.fit = TRUE)
+#95% use normal approximation
+upr <- p$fit + (2 * p$se.fit)
+lwr <- p$fit - (2 * p$se.fit)
+#other way 
+#https://www.r-bloggers.com/2019/08/prediction-intervals-for-generalized-additive-models-gams/
+
+
+#on ne peut pas approximer par une student 
+qt(c(0.025,0.975),200-20)*p$se.fit[1]+p$fit[1]
+qt(c(0.025,0.975),200-13.43)*p$se.fit[1]+p$fit[1]
+
+plot(x,predict(model_smooth_bs3))
+lines(x,upr,col="red")
+lines(x,lwr,col="red")
+```
+Prediction interval with only spline its just like a regression with different variable and therefore you can use student law for confidence and prediction intervals.
+
+
+
+
+
+#interaction
+```{r}
+x<-sort(runif(200,-15,15))
+x2<-runif(200,-15,15)
+y<-2+5*x+1*x*x+rnorm(200,sd=2)-3*x2
+reely<-2+5*x+1*x*x-3*x2
+plot(x,y)
+plot(x2,y)
+
+
+#only interaction terms
+gam_inter<-gam(y~te(x,x2,k=3,bs="cr"))
+length(coef(gam_inter))
+summary(gam_inter)
+pred<-predict(gam_inter)
+plot(x,pred,ylim=c(-50,300))
+points(x,y,col="red")
+
+plot(x2,pred,ylim=c(-50,300))
+points(x2,y,col="red")
+
+
+plot(pred,y)
+```
+te for main effect + interaction.
+number of coeffcient is 1 ( intercept) + (k-1) factor 1 +(k-1) factor 2 + (k-1)^2 factor 1*factor 2
+
+ti for  interaction only
+number of coeffcient is 1 ( intercept) + (k-1) factor 1 +(k-1) factor 2 + (k-1)^2 factor 1*factor 2
+
+
+```{r}
+#only interaction terms
+gam_inter<-gam(y~ti(x,x2,k=3,bs="cr"))
+length(coef(gam_inter))
+summary(gam_inter)$edf
+
+gam_inter<-gam(y~te(x,x2,k=4,bs="cr"))
+length(coef(gam_inter))
+summary(gam_inter)$edf
+
+```
+
+
+#comparison lin vs gam (splines) vs gam smooth
+```{r}
+
+spline_x1<-bs(x,knots=c(-2),degree=1,intercept=F)
+spline_x2<-bs(x2,knots=c(2),degree=1,intercept=F)
+
+#linear model with splines
+linear_model<-lm(y~spline_x1+spline_x2)
+summary(linear_model)
+coef(linear_model)
+lin_pred<-predict(linear_model)
+
+#gam with splines
+gam_model<-gam(y~spline_x1+spline_x2)
+coef(gam_model)
+test<-gam_model$R
+
+#smooth
+smooth_x1<-s(x,bs="cr",k=2)#k=5 mini
+smooth_x2<-s(x,bs="cr",k=2)
+#on ne peut pas les utiliser dans un modèle linéaire.
+
+
+
+ms_x1<-gam(y~s(x,bs="cr",k=5))#k=5 mini
+ms_x2<-gam(y~s(x2,bs="cr",k=3))
+ms_x1x2<-gam(y~s(x,bs="cr",k=3)+s(x2,bs="cr",k=3))
+coef(ms_x1)
+coef(ms_x2)
+coef(ms_x1x2)
+
+test<-ms_x1$R 
+
+#In linear algebra, a QR decomposition, also known as a QR factorization or QU factorization, is a decomposition of a matrix A into a product A = QR of an orthonormal matrix Q and an upper triangular matrix R.
+test2<-ms_x1$var.summary$x
+
+
+
+pred_msx1x2<-predict(ms_x1x2)
+pred_msx1<-predict(ms_x1)
+
+plot(x,y,ylim=c(-50,300))
+points(x,lin_pred,col="red")
+points(x,pred_msx1x2,col="blue")
+
+plot(x2,y,ylim=c(-50,300))
+points(x2,lin_pred,col="red")
+points(x2,pred_msx1x2,col="blue")
+```
+
+Using gam or lm with 2 splines it's the same thing.
+
+Using gam with smooth spline is different from  gam with normal spline.
+
+the coefficient obtain in ms_x1 and msx2 are logically different from the one from model mx1x2 which fit all coefficients at once.
+The basis of the smooth splines depend on the response y, whereas for normal spline it depend only on x.
+
+
+```{r}
+plot(ms_x1x2)
+summary(ms_x1x2)$edf
+coef(ms_x1x2)
+```
+

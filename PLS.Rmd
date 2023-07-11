@@ -1,14 +1,19 @@
-rm(list=ls())
+---
+title: "PLS"
+author: "Lemariey"
+date: "2023-07-11"
+output: github_document
+---
 
-
+```{r}
 #laod packages
 library(pls)
 library(plsRglm)
 library(matlib)
+```
 
 
-
-
+```{r}
 # Define the data
 x1 <- c(1, 3, 8,7,3,5)
 x2 <- c(6, 2, 5,1,3,0)
@@ -19,7 +24,11 @@ y <- c(3, 4, 5,6,0,-2)
 
 # Combine the data into a data frame
 data <- data.frame(x1, x2, y)
+```
 
+
+
+```{r}
 # Fit the pls model
 model <- plsr(y ~ x1 + x2, data=data, ncomp = 2)
 model2 <- plsR(y ~ x1 + x2, data=data, ncomp = 2)
@@ -29,13 +38,18 @@ model2 <- plsR(y ~ x1 + x2, data=data, ncomp = 2)
 summary(model)
 model$coefficients
 model2$Coeffs
+```
 
+
+
+
+
+```{r}
 #base 1 c'est la base des x
 model$loadings#c'est les coefficients de regression entre les x1 et les t1 dans l'espace des observations de dimension n
 model2$pp
-.
 
-#wiegths
+#weights
 base2 <- model$loading.weights#coordonnées des x dans la base 2 cette base est orthogonal. inverse= transposee
 model2$wwnorm#coordonnée base 2
 
@@ -43,6 +57,13 @@ model2$wwnorm#coordonnée base 2
 wstar <- model2$wwetoile#ok
 
 
+
+```
+
+
+
+
+```{r}
 #scores
 score <- model$scores##coordonnées des obs dans la base 3
 model2$tt#score ok
@@ -50,8 +71,11 @@ model2$tt#score ok
 
 #loadings Y
 model$Yloadings
+```
 
 
+
+```{r}
 #propriétes sur les composantes
 t1 <- score[,1]
 t2 <- score[,2]
@@ -61,11 +85,12 @@ dt1 <- sqrt(sum(t1*t1))
 dt2 <- sqrt(sum(t2*t2))
 ps <- sum(t1*t2)/(dt1*dt2)
 #les composantes sont orthogonal dans l'espace a n dimension et leur covariane est nulle.
+```
 
 
 
 
-
+```{r}
 #base 2
 m <- matrix(base2,ncol=2)#base 2 est orthogonal donc l'inverse=transposée
 inv_base2 <- t(m)#coordonnées des composantes dans la base 1
@@ -79,9 +104,12 @@ inv_wstar <- inv(wstar)#
 data_m <- as.matrix(data[,-3])
 data_m%*%wstar
 (t1 <- model2$tt[,1])
+```
 
 
 
+
+```{r}
 #Deflation
 norme <- as.vector((t1%*%t1))
 projection <- matrix(t1)%*%t(matrix(t1))/norme
@@ -92,21 +120,13 @@ xdeflated <- data_m-projection%*%data_m
 (t2_deflated <- xdeflated%*%base2[,2])#on regarde comment xdelated se projete sur la 2eme composante 
 t2
 
+```
 
 
 
 
-
-
-
-##################################################################################""
-#GRAPH
-###################################################################################
-
-
-
-
-
+GRAPH
+```{r}
 #dans la base d'origine
 plot(x1,x2)#données avant delfation
 points(xdeflated[,1],xdeflated[,2],col="red")#données après delfation
@@ -147,8 +167,5 @@ cor(x1,t2)
 
 #pour les scores, ils sont ramené dans le cercle de rayon 1 en divisant tous les scores par la plus grande valeur absolue.
 
-
-
-
-
+```
 
